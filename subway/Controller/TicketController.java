@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import subway.Model.OneWayTicket;
 import subway.Model.PrepaidCard;
 import subway.Model.Station;
+import subway.Model.TwentyHourTicket;
 /**
  *
  * @author ThanhTM
@@ -81,7 +82,7 @@ public class TicketController {
         this.ticketList = new ArrayList<>();
         List<String> stations = StationController.getAllStation();
         OneWayTicket ticket1 = new OneWayTicket(12346579, StationController.getStationByName(stations.get(0)), StationController.getStationByName(stations.get(1)));
-        PrepaidCard ticket2 = new PrepaidCard(11111111, 10);
+        TwentyHourTicket ticket2 = new TwentyHourTicket(11111111);
         PrepaidCard ticket3 = new PrepaidCard(22222222, 8);
         OneWayTicket ticket4 = new OneWayTicket(33333333, StationController.getStationByName(stations.get(3)), StationController.getStationByName(stations.get(6)));
         ticketList.add(ticket1);
