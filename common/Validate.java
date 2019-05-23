@@ -15,21 +15,16 @@ public class Validate {
     
     public Validate (boolean isValidate, String reason) {
         this.isValidate = isValidate;
-        this.reason = reason;
+        if (!isValidate) {
+            this.reason = reason;
+        }
     }
     public Validate (boolean isValidate) {
         this.isValidate = isValidate;
     }
-    
-    public void setIsValidate(boolean isValidate){
-        this.isValidate = isValidate;
-    }
+
     public boolean getIsValidate(){
         return this.isValidate;
-    }
-    
-    public void setReason(String reason){
-        this.reason = this.reason;
     }
     public String getReason(){
         return this.reason;
