@@ -8,9 +8,11 @@ package subway.Controller;
 import java.util.List;
 import subway.Model.Ticket;
 import common.Validate;
-import common.Station;
 import common.StationState;
+import java.util.ArrayList;
 import subway.Model.OneWayTicket;
+import subway.Model.PrepaidCard;
+import subway.Model.Station;
 /**
  *
  * @author ThanhTM
@@ -18,7 +20,20 @@ import subway.Model.OneWayTicket;
 public class TicketController {
     private List<Ticket> ticketList;
     
-    public Validate doAction(int ticketID, Station station, StationState action){
+    public List<Integer> getAllTicket(){
+        List<Integer> ticketIds = new ArrayList<>();
+        for (Ticket ticket: ticketList) {
+            ticketIds.add(ticket.getTicketID());
+        } 
+        return ticketIds;
+    }
+    
+    public Validate doAction(int ticketID, String stationName, StationState action){
+        Station station = StationController.getStationByName(stationName);
+        if (station == null) {
+            return new Validate(false, "Station not found");
+        }
+        
         for (Ticket ticket: ticketList) {
             if (ticket.getTicketID() == ticketID) {
                 return ticket.updateTicketState(station, action);
@@ -36,20 +51,14 @@ public class TicketController {
         return "Ticket not found";
     }
     
-//    public float getActualFare(int ticketID) {
-//        try {
-//            if (ticketList.contains(ticketID)){
-//                Ticket ticket = ticketList.get(ticketID);
-//                return ticket.getActualFare();
-//            }
-//            else {
-//                return -1;
-//            }
-//        } catch (Exception e){ 
-//            // Do nothing, this won't get throw exception
-//            return -1;
-//        }
-//    }
+    public String getTicketType(int ticketID){
+       for (Ticket ticket: ticketList) {
+            if (ticket.getTicketID() == ticketID) {
+                return ticket.getTicketType();
+            }
+        } 
+        return "Ticket not found"; 
+    }
     
     public void chargeMoney(int ticketID, float money) {
         for (Ticket ticket: ticketList) {
@@ -59,11 +68,22 @@ public class TicketController {
         }
     }
     
+    public String getBaseInformation(int ticketID){
+        for (Ticket ticket: ticketList) {
+            if (ticket.getTicketID() == ticketID) {
+                return ticket.getBaseInformation();
+            }
+        } 
+        return "Ticket not found";
+    }
+    
     public TicketController(){
-        OneWayTicket ticket1 = new OneWayTicket(12346579, Station.Bercy, Station.CourSaintEmillion);
-        OneWayTicket ticket2 = new OneWayTicket(12346579, Station.Bercy, Station.CourSaintEmillion);
-        OneWayTicket ticket3 = new OneWayTicket(12346579, Station.Bercy, Station.CourSaintEmillion);
-        OneWayTicket ticket4 = new OneWayTicket(12346579, Station.Bercy, Station.CourSaintEmillion);        
+        this.ticketList = new ArrayList<>();
+        List<String> stations = StationController.getAllStation();
+        OneWayTicket ticket1 = new OneWayTicket(12346579, StationController.getStationByName(stations.get(0)), StationController.getStationByName(stations.get(1)));
+        PrepaidCard ticket2 = new PrepaidCard(11111111, 10);
+        PrepaidCard ticket3 = new PrepaidCard(22222222, 8);
+        OneWayTicket ticket4 = new OneWayTicket(33333333, StationController.getStationByName(stations.get(3)), StationController.getStationByName(stations.get(6)));
         ticketList.add(ticket1);
         ticketList.add(ticket2);
         ticketList.add(ticket3);

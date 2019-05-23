@@ -7,7 +7,6 @@ package subway.Model;
 
 import common.Validate;
 import common.State;
-import common.Station;
 import common.StationState;
 import java.util.Date;
 
@@ -16,12 +15,17 @@ import java.util.Date;
  * @author ThanhTM
  */
 public class TwentyHourTicket implements Ticket{
-	private Date startTime;
-	private Date endTime;
+    private int id;
+    private State state;
+    private Date startTime;
+    private Date endTime;
 
     @Override
     public String getTicketInformation() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String ticketInfo = new String();
+        ticketInfo += "ID: " + id + ", ";
+        ticketInfo += "valid until " + endTime;
+        return ticketInfo;
     }
 
     @Override
@@ -47,6 +51,16 @@ public class TwentyHourTicket implements Ticket{
     @Override
     public State getTicketState() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getBaseInformation() {
+        return "24h tickets: " + state;
+    }
+
+    @Override
+    public String getTicketType() {
+        return "24h ticket";
     }
     
 }

@@ -7,8 +7,7 @@ package subway.Model;
 
 import common.Validate;
 import common.State;
-import common.Station;
-import common.StationController;
+import subway.Controller.StationController;
 import common.StationState;
 
 /**
@@ -52,7 +51,7 @@ public class PrepaidCard implements Ticket{
             return 0;
         } 
         else {
-            return 5;
+            return StationController.getFare(startStation, endStation);
         }
     }
 
@@ -87,7 +86,7 @@ public class PrepaidCard implements Ticket{
                 return new Validate(true);
             } 
             else {
-                return new Validate(false, "Balance is not enoug");
+                return new Validate(false, "Balance is not enough");
             }
         }
         else {
@@ -95,4 +94,14 @@ public class PrepaidCard implements Ticket{
             return new Validate(false, "Ticket is destroyed");
         }
     }    
+
+    @Override
+    public String getBaseInformation() {
+        return ("Prepaid card: " + balance + " euros");
+    }
+
+    @Override
+    public String getTicketType() {
+        return "Prepaid card";
+    }
 }

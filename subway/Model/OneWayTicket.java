@@ -7,8 +7,7 @@ package subway.Model;
 
 import common.Validate;
 import common.State;
-import common.Station;
-import common.StationController;
+import subway.Controller.StationController;
 import common.StationState;
 
 /**
@@ -97,4 +96,14 @@ public class OneWayTicket implements Ticket {
             return new Validate(false, "Ticket is destroyed");
         }
     }    
+
+    @Override
+    public String getBaseInformation() {
+        return ("One-way ticket between " + startStation.getName() + " and " + endStation.getName() + ": " + state +  " - " + balance + " euros");
+    }
+
+    @Override
+    public String getTicketType() {
+        return "one-way ticket";
+    }
 }

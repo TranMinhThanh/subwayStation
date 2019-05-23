@@ -7,7 +7,6 @@ package subway.Model;
 
 import common.Validate;
 import common.State;
-import common.Station;
 import common.StationState;
 
 /**
@@ -21,4 +20,6 @@ public interface Ticket {
     public Validate updateTicketState(Station station, StationState stationState);
     public int getTicketID();
     public State getTicketState();
+    public String getBaseInformation();
+    public String getTicketType();
 }
